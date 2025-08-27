@@ -90,7 +90,7 @@ export default function Productos() {
       <div className="fx-topbar">
         <div className="fx-title">
           <h1>Inventario</h1>
-          <p>Listado de productos</p>
+          <p>Listado de productos Existentes</p>
         </div>
         <div className="fx-theme">
           <select
