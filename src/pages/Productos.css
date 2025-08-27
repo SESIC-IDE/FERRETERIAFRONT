@@ -1,0 +1,316 @@
+/* =======================
+   Paleta y tema (oscuro por defecto)
+   ======================= */
+:root {
+    --bg: #0b0f1a;
+    --panel: rgba(255, 255, 255, 0.06);
+    --panel-strong: rgba(255, 255, 255, 0.12);
+    --text: #e8eefc;
+    --muted: #a9b3c7;
+    --accent: #11b873;
+    /* verde institucional */
+    --accent-2: #1478fc;
+    /* azul institucional */
+    --shadow: 0 10px 30px rgba(0, 0, 0, .45);
+    --radius: 18px;
+    --blur: 14px;
+
+    /* Hace que controles nativos (select, inputs) usen tema claro/oscuro */
+    color-scheme: light dark;
+}
+
+/* Tema claro automático si el sistema lo prefiere */
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #f6f8ff;
+        --panel: rgba(12, 17, 28, 0.04);
+        --panel-strong: rgba(12, 17, 28, 0.08);
+        --text: #0c111c;
+        --muted: #475569;
+    }
+}
+
+/* Overrides manuales (si usas toggle) */
+.theme-light {
+    --bg: #f6f8ff;
+    --panel: rgba(12, 17, 28, 0.04);
+    --panel-strong: rgba(12, 17, 28, 0.08);
+    --text: #0c111c;
+    --muted: #475569;
+}
+
+.theme-dark {
+    --bg: #0b0f1a;
+    --panel: rgba(255, 255, 255, 0.06);
+    --panel-strong: rgba(255, 255, 255, 0.12);
+    --text: #e8eefc;
+    --muted: #a9b3c7;
+}
+
+/* Motion-friendly */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.fx-wrap {
+    min-height: 100dvh;
+    background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(20, 120, 252, .25), transparent 50%),
+        radial-gradient(1000px 500px at -10% 20%, rgba(17, 184, 115, .25), transparent 50%),
+        var(--bg);
+    color: var(--text);
+    padding: clamp(16px, 3vw, 32px);
+}
+
+/* Topbar: título + selector de tema */
+.fx-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.fx-theme {
+    min-width: 160px;
+}
+
+/* Header de filtros */
+.fx-header {
+    display: grid;
+    gap: 16px;
+    align-items: end;
+    grid-template-columns: 1fr;
+    margin-bottom: 18px;
+}
+
+.fx-title h1 {
+    margin: 0;
+    font-size: clamp(24px, 3.6vw, 40px);
+    letter-spacing: .4px;
+}
+
+.fx-title p {
+    margin: 6px 0 0;
+    color: var(--muted);
+}
+
+.fx-controls {
+    display: grid;
+    grid-template-columns: 1fr repeat(2, minmax(180px, 220px));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* Inputs / Selects */
+.fx-input,
+.fx-select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--panel);
+    border: 1px solid transparent;
+    color: var(--text);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+    backdrop-filter: blur(var(--blur));
+    color-scheme: inherit;
+    /* usa esquema root */
+}
+
+.fx-input::placeholder {
+    color: #94a3b8;
+}
+
+.fx-input:focus,
+.fx-select:focus {
+    border-color: color-mix(in oklab, var(--accent) 60%, white 0%);
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 20%, transparent 80%);
+}
+
+/* Select custom */
+.fx-select {
+    appearance: none;
+    background-image:
+        linear-gradient(180deg, transparent, transparent),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23a9b3c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 12px center, right 12px center;
+    padding-right: 38px;
+}
+
+.fx-select option {
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* Alert */
+.fx-alert {
+    background: linear-gradient(135deg, rgba(255, 110, 110, .15), rgba(255, 175, 110, .12));
+    border: 1px solid rgba(255, 110, 110, .4);
+    padding: 12px 14px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+}
+
+/* Grid Cards */
+.fx-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+    .fx-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 900px) {
+    .fx-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1200px) {
+    .fx-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.fx-card {
+    background:
+        linear-gradient(180deg, var(--panel), transparent),
+        radial-gradient(800px 200px at 0% -20%, rgba(20, 120, 252, .20), transparent 40%),
+        radial-gradient(800px 200px at 120% 140%, rgba(17, 184, 115, .20), transparent 40%);
+    border: 1px solid var(--panel-strong);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(var(--blur));
+    position: relative;
+    overflow: hidden;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .2s ease;
+}
+
+.fx-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--accent-2) 45%, white 0%);
+    box-shadow: 0 14px 40px rgba(20, 120, 252, .18), var(--shadow);
+}
+
+/* Skeleton */
+.fx-skeleton {
+    height: 160px;
+    background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent),
+        var(--panel);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite linear;
+}
+
+@keyframes shimmer {
+    to {
+        background-position: 200% 0;
+    }
+}
+
+/* Card content */
+.fx-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fx-chip {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(20, 120, 252, .18);
+    border: 1px solid rgba(20, 120, 252, .35);
+}
+
+.fx-stock {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .06);
+}
+
+.fx-stock.ok {
+    border-color: rgba(17, 184, 115, .5);
+    background: rgba(17, 184, 115, .12);
+}
+
+.fx-stock.low {
+    border-color: rgba(255, 110, 110, .5);
+    background: rgba(255, 110, 110, .12);
+}
+
+.fx-name {
+    margin: 14px 0 10px;
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: 1.2;
+}
+
+.fx-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    color: var(--muted);
+}
+
+.fx-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.fx-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.fx-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid color-mix(in oklab, var(--accent) 60%, white 0%);
+    background: linear-gradient(180deg,
+            color-mix(in oklab, var(--accent) 30%, transparent 70%),
+            color-mix(in oklab, var(--accent) 12%, transparent 88%));
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .1s ease, box-shadow .2s ease;
+    box-shadow: 0 6px 20px rgba(17, 184, 115, .18);
+}
+
+.fx-btn:hover {
+    transform: translateY(-1px);
+}
+
+.fx-btn:active {
+    transform: translateY(0);
+}
+
+.fx-btn.ghost {
+    background: transparent;
+    border: 1px solid var(--panel-strong);
+    box-shadow: none;
+}
+
+/* Empty */
+.fx-empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0;
+}
